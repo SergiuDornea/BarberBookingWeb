@@ -9,7 +9,7 @@
         public string Adresa { get; set; }
 
         public string Email { get; set; }
-        public int Telefon { get; set; }
+        public string Telefon { get; set; }
 
         public ICollection<Barber>? Barbers { get; set; }
     }

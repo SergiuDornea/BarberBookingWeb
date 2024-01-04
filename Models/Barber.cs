@@ -16,6 +16,7 @@ namespace BarberBookingWeb.Models
 
 
         public int? BarberShopID { get; set; }
+        [Display(Name = "Lucrezaza la: ")]
         public BarberShop? BarberShop { get; set; }
 
     }

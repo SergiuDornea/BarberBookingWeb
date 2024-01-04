@@ -17,12 +17,5 @@ namespace BarberBookingWeb.Models
         public int? ClientID { get; set; }
         public Client? Client { get; set; }
 
-        // nume creat dinamic in functie de numele clientului , numele barberului si data la care a fost facuta programarea
-        public string Detalii
-        {
-            get { 
-                return $"Clientul {Client.Nume} programat la barberul - {Barber.Nume}  in data de- {Data.ToString("yyyy-MM-dd HH:mm")}";
-            }
-        }
     }
 }

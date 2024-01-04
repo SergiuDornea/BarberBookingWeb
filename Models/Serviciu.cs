@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BarberBookingWeb.Models
 {
@@ -13,6 +14,8 @@ namespace BarberBookingWeb.Models
         public decimal Cost { get; set; }
 
         public int? BarberID { get; set; }
+
+        [Display(Name = "Serviciu prestat de: ")]
         public Barber? Barber { get; set; }
     }
 }
