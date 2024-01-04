@@ -10,6 +10,7 @@ using BarberBookingWeb.Models;
 
 namespace BarberBookingWeb.Pages.Clients
 {
+
     public class DetailsModel : PageModel
     {
         private readonly BarberBookingWeb.Data.BarberBookingWebContext _context;

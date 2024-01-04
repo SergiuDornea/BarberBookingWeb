@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BarberBookingWeb.Data;
 using BarberBookingWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BarberBookingWeb.Pages.BarberShops
 {
+    [Authorize(Roles = "Admin")]
+
     public class EditModel : PageModel
     {
         private readonly BarberBookingWeb.Data.BarberBookingWebContext _context;

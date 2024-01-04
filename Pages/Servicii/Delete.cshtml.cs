@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BarberBookingWeb.Data;
 using BarberBookingWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BarberBookingWeb.Pages.Servicii
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeleteModel : PageModel
     {
         private readonly BarberBookingWeb.Data.BarberBookingWebContext _context;
