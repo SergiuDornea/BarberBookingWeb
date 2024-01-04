@@ -21,8 +21,6 @@ namespace BarberBookingWeb.Models
         public string Detalii
         {
             get { 
-            
-                // Format the dynamic name using clientName, barberName, and programare data
                 return $"Clientul {Client.Nume} programat la barberul - {Barber.Nume}  in data de- {Data.ToString("yyyy-MM-dd HH:mm")}";
             }
         }

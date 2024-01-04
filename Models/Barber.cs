@@ -11,8 +11,8 @@ namespace BarberBookingWeb.Models
         public string Parola { get; set; }
         public string Email { get; set; }
 
-        public List<Serviciu> Servicii { get; set; }
-        public List<Programare> Programari { get; set; }
+        public ICollection<Serviciu>? Servicii { get; set; }
+        public ICollection<Programare>? Programari { get; set; }
 
 
         public int? BarberShopID { get; set; }
