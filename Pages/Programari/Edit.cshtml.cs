@@ -36,6 +36,8 @@ namespace BarberBookingWeb.Pages.Programari
                 return NotFound();
             }
             Programare = programare;
+           ViewData["BarberID"] = new SelectList(_context.Barber, "ID", "ID");
+           ViewData["ClientID"] = new SelectList(_context.Client, "ID", "ID");
             return Page();
         }
 

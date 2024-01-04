@@ -25,7 +25,8 @@ namespace BarberBookingWeb.Pages.Servicii
         {
             if (_context.Serviciu != null)
             {
-                Serviciu = await _context.Serviciu.ToListAsync();
+                Serviciu = await _context.Serviciu
+                .Include(s => s.Barber).ToListAsync();
             }
         }
     }

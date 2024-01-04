@@ -25,7 +25,9 @@ namespace BarberBookingWeb.Pages.Programari
         {
             if (_context.Programare != null)
             {
-                Programare = await _context.Programare.ToListAsync();
+                Programare = await _context.Programare
+                .Include(p => p.Barber)
+                .Include(p => p.Client).ToListAsync();
             }
         }
     }
