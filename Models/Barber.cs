@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BarberBookingWeb.Data;
 
 namespace BarberBookingWeb.Models
 {
-    public class Barber
+    public class Barber : IUser
     {
         public int ID { get; set; }
         public string Nume { get; set; }

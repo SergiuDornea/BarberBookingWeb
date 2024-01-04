@@ -1,6 +1,8 @@
-﻿namespace BarberBookingWeb.Models
+﻿using BarberBookingWeb.Data;
+
+namespace BarberBookingWeb.Models
 {
-    public class Client
+    public class Client : IUser
     {
 
         public int ID { get; set; }
