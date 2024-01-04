@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BarberBookingWeb.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BarberBookingWeb.Data
 {
-    public class BarberBookingWebContext : DbContext
+    public class BarberBookingWebContext : IdentityDbContext
     {
         public BarberBookingWebContext (DbContextOptions<BarberBookingWebContext> options)
             : base(options)

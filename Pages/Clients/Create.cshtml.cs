@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BarberBookingWeb.Data;
 using BarberBookingWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BarberBookingWeb.Pages.Clients
 {
+    [Authorize(Roles = "Admin")]
+
     public class CreateModel : PageModel
     {
         private readonly BarberBookingWeb.Data.BarberBookingWebContext _context;
