@@ -12,7 +12,7 @@ namespace BarberBookingWeb.Models
         public string Email { get; set; }
 
         public List<Serviciu> Servicii { get; set; }
-        public List<Programari> Programari { get; set; }
+        public List<Programare> Programari { get; set; }
 
     }
 }

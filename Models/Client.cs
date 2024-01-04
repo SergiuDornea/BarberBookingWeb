@@ -9,7 +9,7 @@
         public string Parola { get; set; }
         public string Email { get; set; }
 
-        public List<Programari> Programari { get; set; }
+        public List<Programare> Programari { get; set; }
 
     }
 }
