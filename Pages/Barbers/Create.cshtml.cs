@@ -21,6 +21,7 @@ namespace BarberBookingWeb.Pages.Barbers
 
         public IActionResult OnGet()
         {
+        ViewData["BarberShopID"] = new SelectList(_context.BarberShop, "ID", "ID");
             return Page();
         }
 

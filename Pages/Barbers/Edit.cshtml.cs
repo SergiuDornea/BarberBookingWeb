@@ -36,6 +36,7 @@ namespace BarberBookingWeb.Pages.Barbers
                 return NotFound();
             }
             Barber = barber;
+           ViewData["BarberShopID"] = new SelectList(_context.BarberShop, "ID", "ID");
             return Page();
         }
 

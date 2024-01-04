@@ -23,7 +23,13 @@
                 @Html.DisplayNameFor(model => model.Barber[0].Telefon)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Barber[0].Parola)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Barber[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Barber[0].BarberShop)
             </th>
             <th></th>
         </tr>
@@ -41,7 +47,13 @@
                 @Html.DisplayFor(modelItem => item.Telefon)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Parola)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarberShop.ID)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
