@@ -17,5 +17,7 @@ namespace BarberBookingWeb.Models
 
         [Display(Name = "Serviciu prestat de: ")]
         public Barber? Barber { get; set; }
+
+        public ICollection<ServiciuStil>? ServiciuStiluri { get; set; }
     }
 }

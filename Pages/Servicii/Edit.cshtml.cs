@@ -13,8 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BarberBookingWeb.Pages.Servicii
 {
     [Authorize(Roles = "Admin")]
-
-    public class EditModel : PageModel
+    public class EditModel : ServiciuStiluriPageModel
     {
         private readonly BarberBookingWeb.Data.BarberBookingWebContext _context;
 
@@ -33,49 +32,71 @@ namespace BarberBookingWeb.Pages.Servicii
                 return NotFound();
             }
 
-            var serviciu =  await _context.Serviciu.FirstOrDefaultAsync(m => m.ID == id);
-            if (serviciu == null)
+            //var serviciu =  await _context.Serviciu.FirstOrDefaultAsync(m => m.ID == id);
+            Serviciu = await _context.Serviciu
+               .Include(b => b.Barber)
+               .Include(b => b.ServiciuStiluri).ThenInclude(b => b.Stil)
+               .AsNoTracking()
+               .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (Serviciu == null)
             {
                 return NotFound();
             }
-            Serviciu = serviciu;
-           ViewData["BarberID"] = new SelectList(_context.Barber, "ID", "ID");
+
+            //Aici este NumeComplet;
+            var barberList = _context.Barber.Select(x => new
+            {
+                x.ID,
+                NumeComplet = x.Nume + " " + x.Prenume
+            });
+
+            //Serviciu = serviciu;
+
+            ViewData["BarberID"] = new SelectList(_context.Barber, "ID", "ID");
+            //ViewData["BarberShopID"] = new SelectList(_context.Set<BarberShop>(), "ID", "BarberShop");
+
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+
+        public async Task<IActionResult> OnPostAsync(int? id, string[] selectedStiluri)
         {
-            if (!ModelState.IsValid)
+
+            if (id == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Serviciu).State = EntityState.Modified;
-
-            try
+            var serviciuToUpdate = await _context.Serviciu
+            .Include(i => i.Barber)
+            .Include(i => i.ServiciuStiluri)
+            .ThenInclude(i => i.Stil)
+            .FirstOrDefaultAsync(s => s.ID == id);
+            if (serviciuToUpdate == null)
             {
+                return NotFound();
+            }
+
+            if (await TryUpdateModelAsync<Serviciu>(
+            serviciuToUpdate,
+            "Serviciu",
+            i => i.Tip,
+            i => i.Descriere,
+            i => i.Cost,
+            i => i.BarberID))
+            {
+                UpdateServiciuStiluri(_context, selectedStiluri, serviciuToUpdate);
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ServiciuExists(Serviciu.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool ServiciuExists(int id)
-        {
-          return (_context.Serviciu?.Any(e => e.ID == id)).GetValueOrDefault();
+            UpdateServiciuStiluri(_context, selectedStiluri, serviciuToUpdate);
+            PopulateStilAtribuitServiciu(_context, serviciuToUpdate);
+            return Page();
         }
     }
-}
+
+} 
