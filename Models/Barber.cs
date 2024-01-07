@@ -20,5 +20,13 @@ namespace BarberBookingWeb.Models
         [Display(Name = "Lucrezaza la: ")]
         public BarberShop? BarberShop { get; set; }
 
+        public string NumeComplet
+        {
+            get
+            {
+                return Nume + " " + Prenume;
+            }
+        }
+
     }
 }

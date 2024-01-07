@@ -24,5 +24,7 @@ namespace BarberBookingWeb.Data
         public DbSet<BarberBookingWeb.Models.Programare>? Programare { get; set; }
 
         public DbSet<BarberBookingWeb.Models.Serviciu>? Serviciu { get; set; }
+
+        public DbSet<BarberBookingWeb.Models.Stil>? Stil { get; set; }
     }
 }

@@ -12,8 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BarberBookingWeb.Pages.Servicii
 {
     [Authorize(Roles = "Admin")]
-
-    public class CreateModel : PageModel
+    public class CreateModel : ServiciuStiluriPageModel
     {
         private readonly BarberBookingWeb.Data.BarberBookingWebContext _context;
 
@@ -24,26 +23,48 @@ namespace BarberBookingWeb.Pages.Servicii
 
         public IActionResult OnGet()
         {
-        ViewData["BarberID"] = new SelectList(_context.Barber, "ID", "ID");
+            //Modificam aici daca facem cu NumeComplet;
+            var barberList = _context.Barber.Select(x => new
+            {
+                x.ID,
+                NumeComplet = x.Nume + " " + x.Prenume
+            });
+
+
+            ViewData["BarberID"] = new SelectList(_context.Barber, "ID", "NumeComplet");
+            //ViewData["BarberShopID"] = new SelectList(_context.Set<BarberShop>(), "ID", "BarberShop");
+
+            var serviciu = new Serviciu();
+            serviciu.ServiciuStiluri = new List<ServiciuStil>();
+            PopulateStilAtribuitServiciu(_context, serviciu);
             return Page();
         }
 
         [BindProperty]
         public Serviciu Serviciu { get; set; } = default!;
-        
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string[] selectedStiluri)
         {
-          if (!ModelState.IsValid || _context.Serviciu == null || Serviciu == null)
+            var newServiciu = new Serviciu();
+            if (selectedStiluri != null)
             {
-                return Page();
+                newServiciu.ServiciuStiluri = new List<ServiciuStil>();
+                foreach (var cat in selectedStiluri)
+                {
+                    var catToAdd = new ServiciuStil
+                    {
+                        StilID = int.Parse(cat)
+                    };
+                    newServiciu.ServiciuStiluri.Add(catToAdd);
+                }
             }
-
+            Serviciu.ServiciuStiluri = newServiciu.ServiciuStiluri;
             _context.Serviciu.Add(Serviciu);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
+
+    
     }
 }
+
